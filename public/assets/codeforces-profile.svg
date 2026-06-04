@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 727 121" role="img" aria-labelledby="title desc">
+  <title id="title">Codeforces siddhantmohanty606 profile</title>
+  <desc id="desc">Codeforces profile header showing pupil rank, username and contest rating 1302.</desc>
+  <rect width="727" height="121" fill="#fff"/>
+  <text x="6" y="15" fill="green" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Pupil</text>
+  <text x="6" y="42" fill="green" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">siddhantmohanty606</text>
+  <g transform="translate(8 63)">
+    <path d="M0 8l20-8 12 18-21 8z" fill="#3c9de9"/>
+    <path d="M3 11l5 8 4-9 5 7 4-10 6 9" fill="none" stroke="#d7efff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M0 8l11 18 21-8" fill="none" stroke="#88c9ff" stroke-width="1.5"/>
+  </g>
+  <text x="43" y="79" fill="#000" font-family="Arial, Helvetica, sans-serif" font-size="16">Contest rating:</text>
+  <text x="155" y="79" fill="green" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">1302</text>
+  <text x="199" y="79" fill="#000" font-family="Arial, Helvetica, sans-serif" font-size="13">(max.</text>
+  <text x="235" y="79" fill="green" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">pupil, 1302</text>
+  <text x="303" y="79" fill="#000" font-family="Arial, Helvetica, sans-serif" font-size="13">)</text>
+</svg>

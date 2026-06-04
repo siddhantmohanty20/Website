@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1068 362" role="img" aria-labelledby="title desc">
+  <title id="title">GeeksForGeeks siddhantmoeynu profile stats</title>
+  <desc id="desc">GeeksForGeeks profile activity cards showing problems overview, coding score, problems solved, institute rank and POTD stats.</desc>
+  <rect width="1068" height="362" fill="#fff"/>
+
+  <g transform="translate(14 10)">
+    <rect width="369" height="345" rx="15" fill="#fff" stroke="#d1d5db"/>
+    <text x="104" y="38" fill="#000" font-family="Inter, Arial, sans-serif" font-size="20">Problems Overview</text>
+    <path d="M112 126a94 94 0 1 1-28 183" fill="none" stroke="#ffb443" stroke-width="21"/>
+    <path d="M84 309a94 94 0 0 0 29 8 94 94 0 0 0 97-143" fill="none" stroke="#a9d77b" stroke-width="21"/>
+    <path d="M112 126a94 94 0 0 1 14 0" fill="none" stroke="#ff6748" stroke-width="21"/>
+    <text x="78" y="203" fill="#070911" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800">283</text>
+    <text x="86" y="230" fill="#333" font-family="Inter, Arial, sans-serif" font-size="14">Problems</text>
+    <text x="99" y="249" fill="#333" font-family="Inter, Arial, sans-serif" font-size="14">Solved</text>
+    <g transform="translate(232 133)" font-family="Inter, Arial, sans-serif" font-size="14" fill="#111">
+      <rect x="0" y="0" width="11" height="11" rx="2" fill="#b8f2ef"/><text x="24" y="10">School (0)</text>
+      <rect x="0" y="33" width="11" height="11" rx="2" fill="#c9eb88"/><text x="24" y="43">Basic (31)</text>
+      <rect x="0" y="66" width="11" height="11" rx="2" fill="#9ed275"/><text x="24" y="76">Easy (128)</text>
+      <rect x="0" y="99" width="11" height="11" rx="2" fill="#ffb443"/><text x="24" y="109">Medium (118)</text>
+      <rect x="0" y="132" width="11" height="11" rx="2" fill="#ff6748"/><text x="24" y="142">Hard (6)</text>
+    </g>
+  </g>
+
+  <g transform="translate(400 10)">
+    <rect width="357" height="345" rx="15" fill="#fff" stroke="#d1d5db"/>
+    <g transform="translate(19 17)">
+      <rect width="320" height="97" rx="10" fill="#f7fffb" stroke="#b9edcf"/>
+      <rect x="15" y="30" width="37" height="37" rx="10" fill="#ddf6ea"/>
+      <text x="23" y="55" fill="#16a568" font-family="Consolas, monospace" font-size="24">&lt;/&gt;</text>
+      <text x="64" y="54" fill="#07101f" font-family="Inter, Arial, sans-serif" font-size="16">Coding Score</text>
+      <rect x="231" y="30" width="55" height="37" rx="18" fill="#fff" stroke="#b8e9ca" filter="url(#shadow)"/>
+      <text x="245" y="55" fill="#07101f" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">731</text>
+    </g>
+    <g transform="translate(19 135)" font-family="Inter, Arial, sans-serif">
+      <rect width="320" height="52" rx="8" fill="#f5f5f5"/>
+      <rect x="12" y="9" width="37" height="37" rx="10" fill="#eaf0ff"/>
+      <text x="20" y="34" fill="#4d7dff" font-family="Consolas, monospace" font-size="22">&lt;/&gt;</text>
+      <text x="63" y="32" fill="#07101f" font-size="16">Problems Solved</text>
+      <rect x="234" y="9" width="54" height="37" rx="18" fill="#fff" stroke="#b8e9ca"/>
+      <text x="248" y="33" fill="#07101f" font-size="15" font-weight="700">283</text>
+      <text x="299" y="32" fill="#111" font-size="22">›</text>
+
+      <rect y="64" width="320" height="52" rx="8" fill="#f5f5f5"/>
+      <rect x="12" y="73" width="37" height="37" rx="10" fill="#efe8ff"/>
+      <text x="22" y="99" fill="#7b52ff" font-size="24">♙</text>
+      <text x="63" y="96" fill="#07101f" font-size="16">Institute Rank</text>
+      <rect x="234" y="73" width="54" height="37" rx="18" fill="#fff" stroke="#b8e9ca"/>
+      <text x="248" y="97" fill="#07101f" font-size="15" font-weight="700">355</text>
+      <text x="299" y="96" fill="#111" font-size="22">›</text>
+
+      <rect y="128" width="320" height="52" rx="8" fill="#f5f5f5"/>
+      <rect x="12" y="137" width="37" height="37" rx="10" fill="#fff0dd"/>
+      <text x="21" y="162" fill="#ff8b19" font-size="22">▤</text>
+      <text x="63" y="160" fill="#07101f" font-size="16">Articles Published</text>
+      <rect x="234" y="137" width="54" height="37" rx="18" fill="#fff" stroke="#b8e9ca"/>
+      <text x="256" y="161" fill="#07101f" font-size="15" font-weight="700">0</text>
+    </g>
+  </g>
+
+  <g transform="translate(776 16)">
+    <rect width="286" height="332" rx="15" fill="#fff" stroke="#d1d5db"/>
+    <rect x="14" y="14" width="257" height="63" rx="9" fill="#ff8f15"/>
+    <rect x="53" y="14" width="218" height="63" rx="9" fill="#ff6f68"/>
+    <rect x="30" y="28" width="37" height="37" rx="7" fill="#ffb13f"/>
+    <text x="38" y="54" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="24">♨</text>
+    <text x="78" y="51" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">0 Day POTD Streak</text>
+
+    <rect x="14" y="91" width="257" height="107" rx="9" fill="#fff" stroke="#d1d5db"/>
+    <rect x="29" y="106" width="33" height="33" rx="8" fill="#fafafa"/>
+    <text x="38" y="129" fill="#ff7f20" font-family="Inter, Arial, sans-serif" font-size="19">▦</text>
+    <text x="74" y="125" fill="#111" font-family="Inter, Arial, sans-serif" font-size="13">Longest Streak:</text>
+    <text x="74" y="170" fill="#070911" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="800">11 Days</text>
+
+    <rect x="14" y="212" width="257" height="107" rx="9" fill="#fff" stroke="#d1d5db"/>
+    <rect x="29" y="227" width="33" height="33" rx="8" fill="#fafafa"/>
+    <text x="37" y="250" fill="#ff7f20" font-family="Inter, Arial, sans-serif" font-size="19">♕</text>
+    <text x="74" y="246" fill="#111" font-family="Inter, Arial, sans-serif" font-size="13">POTDs Solved:</text>
+    <text x="74" y="290" fill="#070911" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="800">36</text>
+  </g>
+
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#97caa9" flood-opacity=".65"/>
+    </filter>
+  </defs>
+</svg>
