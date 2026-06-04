@@ -17,7 +17,7 @@ const educationData = [
   },
   {
     institution: 'Kerala Samajam Model School',
-    location: 'Bangalore, India',
+    location: 'Jamshedpur, India',
     degree: 'Class XII',
     board: 'CISCE (Council for the Indian School Certificate Examinations)',
     year: 2021,
@@ -29,7 +29,7 @@ const educationData = [
   },
   {
     institution: 'Kerala Samajam Model School',
-    location: 'Bangalore, India',
+    location: 'Jamshedpur, India',
     degree: 'Class X',
     board: 'ICSE (Indian Certificate of Secondary Education)',
     year: 2019,
