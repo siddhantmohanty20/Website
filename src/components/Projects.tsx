@@ -24,7 +24,7 @@ const projects = [
       'Integrated OpenAI API for AI-generated product descriptions and images.',
       'Implemented a context-aware AI chatbot using RAG for real-time product and order queries.',
     ],
-    github: '#', // TODO: Replace with actual GitHub repo URL
+    github: 'https://github.com/siddhantmohanty20/E-com-Website', // TODO: Replace with actual GitHub repo URL
     live: null,
   },
   {
@@ -40,7 +40,7 @@ const projects = [
       'Engineered a multimodal AI chat backend supporting text, image understanding, image generation, speech-to-text, and audio processing in a unified pipeline.',
       'Integrated semantic search with pgvector for context-sensitive memory retrieval.',
     ],
-    github: '#', // TODO: Replace with actual GitHub repo URL
+    github: 'https://github.com/siddhantmohanty20/Backend-for-Multimodal-Conversational-AI-with-Memory', // TODO: Replace with actual GitHub repo URL
     live: null,
   },
   {
@@ -57,7 +57,7 @@ const projects = [
       'Built a full-stack job portal with role-based access control using Spring Security and JWT authentication.',
       'Implemented request logging with Spring AOP; optimised PostgreSQL queries for applicant filtering.',
     ],
-    github: '#', // TODO: Replace with actual GitHub repo URL
+    github: 'https://github.com/siddhantmohanty20/Job-App', // TODO: Replace with actual GitHub repo URL
     live: null,
   },
 ];
