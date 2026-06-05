@@ -17,9 +17,14 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-function ProfileAvatar({ isDark }: { isDark: boolean }) {
+function ProfileAvatar({ isDark, onClick }: { isDark: boolean; onClick: () => void }) {
   return (
-    <div className="relative rounded-full animate-pulse-glow">
+    <button
+      type="button"
+      onClick={onClick}
+      className="relative rounded-full animate-pulse-glow"
+      aria-label="View full profile photo"
+    >
       <div
         className="w-9 h-9 rounded-full p-[2px] overflow-hidden"
         style={{
@@ -47,7 +52,7 @@ function ProfileAvatar({ isDark }: { isDark: boolean }) {
         className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2"
         style={{ borderColor: isDark ? '#0a0a0f' : '#f8f7ff' }}
       />
-    </div>
+    </button>
   );
 }
 
@@ -56,6 +61,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('summary');
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -194,7 +200,7 @@ export default function Navbar() {
             </button>
 
             {/* Profile image */}
-            <ProfileAvatar isDark={isDark} />
+            <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
 
             {/* Mobile menu toggle */}
             <button
@@ -212,7 +218,7 @@ export default function Navbar() {
 
           {/* Desktop Profile picture */}
           <div className="hidden lg:flex items-center gap-3">
-            <ProfileAvatar isDark={isDark} />
+            <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
           </div>
         </div>
       </div>
@@ -263,6 +269,41 @@ export default function Navbar() {
                 );
               })}
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {profileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+            onClick={() => setProfileOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="relative max-h-[88vh] max-w-3xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setProfileOpen(false)}
+                className="absolute right-3 top-3 z-10 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80"
+                aria-label="Close profile photo"
+              >
+                <RiCloseLine size={24} />
+              </button>
+              <img
+                src="/assets/profile.jpg"
+                alt="Siddhant Mohanty"
+                className="block max-h-[88vh] w-auto max-w-full object-contain"
+              />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

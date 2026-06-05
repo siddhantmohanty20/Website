@@ -5,28 +5,28 @@ import { useTheme } from '../contexts/ThemeContext';
 
 const galleryImages = [
   {
-    src: './assets/gallery-1.jpg', // TODO: Replace with actual gallery image
+    src: './assets/gallery/cultural-event.JPG', // TODO: Replace with actual gallery image
     caption: 'Cultural event at MNIT Jaipur',
   },
   {
-    src: './assets/gallery-2.jpg', // TODO: Replace with actual gallery image
-    caption: 'Technical workshop — Spring Boot',
+    src: './assets/gallery/blitz-team.jpeg', // TODO: Replace with actual gallery image
+    caption: 'Cultural Team of MNIT Jaipur',
   },
   {
-    src: './assets/gallery-3.jpg', // TODO: Replace with actual gallery image
-    caption: 'Team collaboration session',
+    src: './assets/gallery/case-questa.jpeg', // TODO: Replace with actual gallery image
+    caption: 'CaseQuesta 2024 — BITS Pilani',
   },
   {
-    src: './assets/gallery-4.jpg', // TODO: Replace with actual gallery image
-    caption: 'Placement preparation session',
+    src: './assets/gallery/felicitation.jpeg', // TODO: Replace with actual gallery image
+    caption: 'Felicitated as Advisor to President of Cultural Society — MNIT Jaipur',
   },
   {
-    src: './assets/gallery-5.jpg', // TODO: Replace with actual gallery image
+    src: './assets/gallery/blitz-team.jpeg', // TODO: Replace with actual gallery image
     caption: 'CaseQuesta competition — BITS Pilani',
   },
   {
-    src: './assets/gallery-6.jpg', // TODO: Replace with actual gallery image
-    caption: 'ProductoPedia — SRCC event',
+    src: './assets/gallery/arc-intern.png', // TODO: Replace with actual gallery image
+    caption: 'Internship at Arcesium India Pvt. Ltd.',
   },
 ];
 

@@ -173,7 +173,7 @@ export default function Contact() {
             {/* Social links */}
             <div className="flex gap-3 mt-2">
               <a
-                href="#" // TODO: Replace with actual LinkedIn profile URL
+                href="https://www.linkedin.com/in/siddhant-mohanty-132a02257/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 glass-card border ${isDark
@@ -185,7 +185,7 @@ export default function Contact() {
                 LinkedIn
               </a>
               <a
-                href="#" // TODO: Replace with actual GitHub profile URL
+                href="https://github.com/siddhantmohanty20"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 glass-card border ${isDark

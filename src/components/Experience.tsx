@@ -25,7 +25,7 @@ const experiences = [
       'Collaborated cross-functionally with product and QA teams in an Agile/Scrum environment to scope, implement, and release features within tight sprint cycles.',
     ],
     tags: ['Java', 'Kotlin', 'Spring Boot', 'JUnit 5', 'Mockito', 'Agile'],
-    image: './assets/arcesium-team.jpg', // TODO: Replace with actual team photo
+    image: './assets/arc-team.png',
   },
 ];
 

@@ -146,7 +146,7 @@ export default function Achievements() {
             { value: '1000+', label: 'Problems Solved', icon: BsLightningFill },
             { value: '98%', label: 'QA Pass Rate', icon: BsTrophyFill },
             { value: 'Top 5%', label: 'LeetCode Global', icon: BsLightningFill },
-            { value: '2x', label: 'Competition Winner', icon: BsTrophyFill },
+            { value: '2x', label: 'Competition Finalist', icon: BsTrophyFill },
           ].map((stat, i) => (
             <div key={i} className="flex flex-col items-center gap-1">
               <stat.icon size={18} className={isDark ? 'text-accent-cyan' : 'text-accent-teal'} />
