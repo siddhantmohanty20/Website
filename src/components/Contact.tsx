@@ -5,7 +5,8 @@ import { HiMail, HiPhone } from 'react-icons/hi';
 import { FiLinkedin, FiGithub, FiSend } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // TODO: Replace with your Google Apps Script Web App URL
+// This line reads the secret URL directly from your new .env file
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL; 
 
 export default function Contact() {
   const { theme } = useTheme();
@@ -20,6 +21,14 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Safety check to ensure your .env variable is loading correctly
+    if (!GOOGLE_SCRIPT_URL) {
+      toast.error('Configuration error. Please email directly.');
+      console.error('Missing VITE_GOOGLE_SCRIPT_URL in your .env file');
+      return;
+    }
+
     if (!form.name || !form.email || !form.subject || !form.message) {
       toast.error('Please fill in all fields.');
       return;
@@ -27,17 +36,20 @@ export default function Contact() {
 
     setLoading(true);
     try {
-      const res = await fetch(GOOGLE_SCRIPT_URL, {
+      // mode: 'no-cors' prevents the browser from blocking requests due to Google's backend redirects
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(form),
       });
-      if (res.ok) {
-        toast.success('Message sent! I will get back to you soon.');
-        setForm({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error('Failed');
-      }
-    } catch {
+
+      toast.success('Message sent! I will get back to you soon.');
+      setForm({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Submission error:', error);
       toast.error('Something went wrong. Please try again or email directly.');
     } finally {
       setLoading(false);
@@ -300,10 +312,7 @@ export default function Contact() {
                   <motion.span
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-                    className={`w-4 h-4 rounded-full block border-2 ${isDark
-                        ? 'border-white/30 border-t-white'
-                        : 'border-white/30 border-t-white'
-                      }`}
+                    className="w-4 h-4 rounded-full block border-2 border-white/30 border-t-white"
                   />
                   Sending...
                 </span>
@@ -325,7 +334,7 @@ export default function Contact() {
         }`}>
         <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-white/30' : 'text-indigo-700/50'
           }`}>
-          © 2025 Siddhant Mohanty. All rights reserved.
+          © 2026 Siddhant Mohanty. All rights reserved.
         </p>
         <p className={`text-xs mt-1 transition-colors duration-300 ${isDark ? 'text-white/15' : 'text-indigo-700/30'
           }`}>
