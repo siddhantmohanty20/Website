@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { BsBuildingsFill } from 'react-icons/bs';
 import { HiCheckCircle } from 'react-icons/hi';
+import { FiX } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 
 const fadeUp = {
@@ -8,7 +10,11 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.15, ease: 'easeOut' },
+    transition: {
+      duration: 0.6,
+      delay: i * 0.15,
+      ease: 'easeOut',
+    },
   }),
 };
 
@@ -25,7 +31,7 @@ const experiences = [
       'Collaborated cross-functionally with product and QA teams in an Agile/Scrum environment to scope, implement, and release features within tight sprint cycles.',
     ],
     tags: ['Java', 'Kotlin', 'Spring Boot', 'JUnit 5', 'Mockito', 'Agile'],
-    image: './assets/arc-team.png',
+    image: '/assets/arc-team.png',
   },
 ];
 
@@ -33,11 +39,17 @@ export default function Experience() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
-    <section id="experience" className={`relative py-24 px-6 transition-colors duration-300 ${isDark ? 'bg-dark-900' : 'bg-light-50'
-      }`}>
+    <section
+      id="experience"
+      className={`relative py-24 px-6 transition-colors duration-300 ${
+        isDark ? 'bg-dark-900' : 'bg-light-50'
+      }`}
+    >
       <div className="max-w-5xl mx-auto">
-        {/* Section header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,11 +65,14 @@ export default function Experience() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className={`absolute left-6 sm:left-8 top-0 bottom-0 w-px opacity-30 transition-colors duration-300 ${isDark
-              ? 'bg-gradient-to-b from-accent-purple via-accent-blue to-accent-cyan'
-              : 'bg-gradient-to-b from-accent-violet via-accent-indigo to-accent-teal'
-            }`} />
+          {/* Vertical Line */}
+          <div
+            className={`absolute left-6 sm:left-8 top-0 bottom-0 w-px opacity-30 transition-colors duration-300 ${
+              isDark
+                ? 'bg-gradient-to-b from-accent-purple via-accent-blue to-accent-cyan'
+                : 'bg-gradient-to-b from-accent-violet via-accent-indigo to-accent-teal'
+            }`}
+          />
 
           {experiences.map((exp, i) => (
             <motion.div
@@ -69,7 +84,7 @@ export default function Experience() {
               viewport={{ once: true }}
               className="relative mb-12 last:mb-0"
             >
-              {/* Timeline dot */}
+              {/* Timeline Dot */}
               <div
                 className="absolute left-[18px] sm:left-[26px] top-4 w-5 h-5 rounded-full flex items-center justify-center animate-pulse-glow"
                 style={{
@@ -81,82 +96,19 @@ export default function Experience() {
                 <div className="w-2 h-2 rounded-full bg-white" />
               </div>
 
-              {/* Two-column layout on desktop */}
-              <div className="pl-16 sm:pl-20 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Card */}
-                <div
-                  className={`glass-card glass-card-hover p-6 sm:p-8 transition-all duration-300 ${isDark
-                      ? ''
-                      : 'border-indigo-200/40 hover:border-indigo-400/40'
-                    }`}
-                >
-                  {/* Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <BsBuildingsFill className={isDark ? 'text-accent-cyan' : 'text-accent-teal'} size={16} />
-                        <h3 className={`font-outfit font-bold text-lg transition-colors duration-300 ${isDark ? 'text-white' : 'text-indigo-900'
-                          }`}>
-                          {exp.company}
-                        </h3>
-                      </div>
-                      <p className={`font-semibold text-base transition-colors duration-300 ${isDark ? 'text-accent-purple' : 'text-accent-violet'
-                        }`}>
-                        {exp.role}
-                      </p>
-                      {exp.project && (
-                        <p className={`text-sm mt-1 transition-colors duration-300 ${isDark
-                            ? 'text-white/40'
-                            : 'text-indigo-700/50'
-                          }`}>
-                          Project: <span className={isDark ? 'text-white/60 italic' : 'text-indigo-800/70 italic'}>{exp.project}</span>
-                        </p>
-                      )}
-                    </div>
-                    <span
-                      className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold self-start transition-colors duration-300 ${isDark
-                          ? 'bg-accent-purple/20 text-white/80'
-                          : 'bg-accent-violet/20 text-indigo-900'
-                        }`}
-                    >
-                      {exp.period}
-                    </span>
-                  </div>
-
-                  {/* Bullets */}
-                  <ul className="space-y-3 mb-5">
-                    {exp.bullets.map((b, bi) => (
-                      <li key={bi} className={`flex gap-3 text-sm leading-relaxed transition-colors duration-300 ${isDark ? 'text-white/65' : 'text-indigo-700/75'
-                        }`}>
-                        <HiCheckCircle className={`shrink-0 mt-0.5 ${isDark ? 'text-accent-cyan' : 'text-accent-teal'}`} size={17} />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-300 ${isDark
-                            ? 'bg-cyan-600/20 text-accent-cyan/80'
-                            : 'bg-teal-100 text-accent-teal'
-                          }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Image on the right (desktop only) */}
-                <div className="hidden md:block">
+              {/* Content Layout */}
+              <div className="pl-16 sm:pl-20 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                {/* IMAGE COLUMN */}
+                <div className="flex">
                   <motion.div
                     whileHover={{ y: -4 }}
                     transition={{ duration: 0.25 }}
-                    className={`relative h-72 rounded-2xl overflow-hidden transition-all duration-300 ${isDark ? 'border border-white/[0.08]' : 'border border-indigo-200/50 shadow-lg'
-                      }`}
+                    onClick={() => setSelectedImage(exp.image)}
+                    className={`relative flex-1 h-full rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${
+                      isDark
+                        ? 'border border-white/[0.08]'
+                        : 'border border-indigo-200/50 shadow-lg'
+                    }`}
                     style={{
                       background: isDark
                         ? 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1))'
@@ -172,23 +124,176 @@ export default function Experience() {
                         target.style.opacity = '0.3';
                       }}
                     />
-                    {/* Gradient overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${isDark
-                        ? 'from-dark-900/80 via-transparent to-transparent'
-                        : 'from-light-50/80 via-transparent to-transparent'
-                      }`} />
-                    {/* Caption */}
-                    <p className={`absolute bottom-4 left-4 right-4 text-sm font-medium transition-colors duration-300 ${isDark ? 'text-white/80' : 'text-indigo-900/80'
-                      }`}>
+
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t ${
+                        isDark
+                          ? 'from-dark-900/80 via-transparent to-transparent'
+                          : 'from-light-50/80 via-transparent to-transparent'
+                      }`}
+                    />
+
+                    <p
+                      className={`absolute bottom-4 left-4 right-4 text-sm font-medium transition-colors duration-300 ${
+                        isDark
+                          ? 'text-white/80'
+                          : 'text-indigo-900/80'
+                      }`}
+                    >
                       Team at {exp.company}
                     </p>
                   </motion.div>
+                </div>
+
+                {/* EXPERIENCE CARD */}
+                <div
+                  className={`glass-card glass-card-hover p-6 sm:p-8 h-full transition-all duration-300 ${
+                    isDark
+                      ? ''
+                      : 'border-indigo-200/40 hover:border-indigo-400/40'
+                  }`}
+                >
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <BsBuildingsFill
+                          className={
+                            isDark
+                              ? 'text-accent-cyan'
+                              : 'text-accent-teal'
+                          }
+                          size={16}
+                        />
+                        <h3
+                          className={`font-outfit font-bold text-lg transition-colors duration-300 ${
+                            isDark
+                              ? 'text-white'
+                              : 'text-indigo-900'
+                          }`}
+                        >
+                          {exp.company}
+                        </h3>
+                      </div>
+
+                      <p
+                        className={`font-semibold text-base transition-colors duration-300 ${
+                          isDark
+                            ? 'text-accent-purple'
+                            : 'text-accent-violet'
+                        }`}
+                      >
+                        {exp.role}
+                      </p>
+
+                      {exp.project && (
+                        <p
+                          className={`text-sm mt-1 transition-colors duration-300 ${
+                            isDark
+                              ? 'text-white/40'
+                              : 'text-indigo-700/50'
+                          }`}
+                        >
+                          Project:{' '}
+                          <span
+                            className={
+                              isDark
+                                ? 'text-white/60 italic'
+                                : 'text-indigo-800/70 italic'
+                            }
+                          >
+                            {exp.project}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+
+                    <span
+                      className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold self-start transition-colors duration-300 ${
+                        isDark
+                          ? 'bg-accent-purple/20 text-white/80'
+                          : 'bg-accent-violet/20 text-indigo-900'
+                      }`}
+                    >
+                      {exp.period}
+                    </span>
+                  </div>
+
+                  {/* Bullets */}
+                  <ul className="space-y-3 mb-5">
+                    {exp.bullets.map((b, bi) => (
+                      <li
+                        key={bi}
+                        className={`flex gap-3 text-sm leading-relaxed transition-colors duration-300 ${
+                          isDark
+                            ? 'text-white/65'
+                            : 'text-indigo-700/75'
+                        }`}
+                      >
+                        <HiCheckCircle
+                          className={`shrink-0 mt-0.5 ${
+                            isDark
+                              ? 'text-accent-cyan'
+                              : 'text-accent-teal'
+                          }`}
+                          size={17}
+                        />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {exp.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-300 ${
+                          isDark
+                            ? 'bg-cyan-600/20 text-accent-cyan/80'
+                            : 'bg-teal-100 text-accent-teal'
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* IMAGE PREVIEW MODAL */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-5 right-5 text-white hover:text-white/70 transition-colors"
+            >
+              <FiX size={30} />
+            </button>
+
+            <motion.img
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              src={selectedImage}
+              alt="Preview"
+              className="max-h-[90vh] max-w-[95vw] object-contain rounded-xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

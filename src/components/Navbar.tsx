@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RiMenuLine, RiCloseLine, RiSunLine, RiMoonLine } from 'react-icons/ri';
 import { useTheme } from '../contexts/ThemeContext';
@@ -64,12 +65,29 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  // Close profile preview on scroll
+  useEffect(() => {
+    if (!profileOpen) return;
+
+    const handleScroll = () => setProfileOpen(false);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [profileOpen]);
+
+  // Navbar background on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Active section via IntersectionObserver
   useEffect(() => {
     const sectionIds = navLinks.map((l) => l.href.replace('#', ''));
     observerRef.current = new IntersectionObserver(
@@ -96,217 +114,223 @@ export default function Navbar() {
   const isDark = theme === 'dark';
 
   return (
-    <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? isDark
-            ? 'bg-dark-900/90 border-b border-white/[0.06]'
-            : 'bg-white/85 border-b border-indigo-200/30'
-          : 'bg-transparent'
-      }`}
-      style={{
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-      }}
-    >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button
-            onClick={() => handleNavClick('#summary')}
-            className={`font-outfit font-bold text-xl tracking-tight transition-colors duration-300 ${
-              isDark ? '' : 'text-indigo-900'
-            }`}
-          >
-            <span className="gradient-text">SM</span>
-            <span className={`ml-1 text-sm font-normal hidden sm:inline transition-colors duration-300 ${
-              isDark ? 'text-white/60' : 'text-indigo-700/60'
-            }`}>
-              / Siddhant Mohanty
-            </span>
-          </button>
-
-          {/* Desktop Nav + Theme Toggle */}
-          <div className="hidden lg:flex items-center gap-2">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace('#', '');
-              return (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? isDark
-                        ? 'text-white'
-                        : 'text-indigo-900'
-                      : isDark
-                      ? 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
-                      : 'text-indigo-700/60 hover:text-indigo-900 hover:bg-indigo-100/20'
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full"
-                      style={{
-                        background: isDark
-                          ? 'linear-gradient(90deg, #7c3aed, #06b6d4)'
-                          : 'linear-gradient(90deg, #6d28d9, #0891b2)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-
-            {/* Theme Toggle */}
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? isDark
+              ? 'bg-dark-900/90 border-b border-white/[0.06]'
+              : 'bg-white/85 border-b border-indigo-200/30'
+            : 'bg-transparent'
+        }`}
+        style={{
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+        }}
+      >
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
             <button
-              onClick={toggleTheme}
-              className={`ml-2 p-2 rounded-lg transition-all duration-300 ${
-                isDark
-                  ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
-                  : 'text-indigo-700 hover:bg-indigo-100/30'
+              onClick={() => handleNavClick('#summary')}
+              className={`font-outfit font-bold text-xl tracking-tight transition-colors duration-300 ${
+                isDark ? '' : 'text-indigo-900'
               }`}
-              aria-label="Toggle theme"
             >
-              <motion.div
-                initial={false}
-                animate={{ rotate: isDark ? 180 : 0 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+              <span className="gradient-text">SM</span>
+              <span
+                className={`ml-1 text-sm font-normal hidden sm:inline transition-colors duration-300 ${
+                  isDark ? 'text-white/60' : 'text-indigo-700/60'
+                }`}
               >
-                {isDark ? <RiMoonLine size={20} /> : <RiSunLine size={20} />}
-              </motion.div>
-            </button>
-          </div>
-
-          {/* Mobile Controls */}
-          <div className="flex items-center gap-2 lg:hidden">
-            {/* Theme toggle mobile */}
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-lg transition-all duration-300 ${
-                isDark
-                  ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
-                  : 'text-indigo-700 hover:bg-indigo-100/30'
-              }`}
-              aria-label="Toggle theme"
-            >
-              {isDark ? <RiMoonLine size={18} /> : <RiSunLine size={18} />}
+                / Siddhant Mohanty
+              </span>
             </button>
 
-            {/* Profile image */}
-            <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className={`p-2 rounded-lg transition-colors ${
-                isDark
-                  ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
-                  : 'text-indigo-700 hover:bg-indigo-100/30'
-              }`}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <RiCloseLine size={22} /> : <RiMenuLine size={22} />}
-            </button>
-          </div>
-
-          {/* Desktop Profile picture */}
-          <div className="hidden lg:flex items-center gap-3">
-            <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className={`lg:hidden overflow-hidden ${
-              isDark
-                ? 'bg-dark-800/95 border-b border-white/[0.06]'
-                : 'bg-white/90 border-b border-indigo-200/20'
-            }`}
-            style={{ backdropFilter: 'blur(12px)' }}
-          >
-            <div className="px-4 py-3 grid grid-cols-3 gap-1">
+            {/* Desktop Nav + Theme Toggle */}
+            <div className="hidden lg:flex items-center gap-2">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.replace('#', '');
                 return (
                   <button
                     key={link.href}
                     onClick={() => handleNavClick(link.href)}
-                    className={`py-2 px-3 text-sm rounded-lg text-center transition-all ${
+                    className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive
                         ? isDark
-                          ? 'text-white font-medium'
-                          : 'text-indigo-900 font-medium'
+                          ? 'text-white'
+                          : 'text-indigo-900'
                         : isDark
-                        ? 'text-white/50 hover:text-white'
-                        : 'text-indigo-700/60 hover:text-indigo-900'
+                        ? 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+                        : 'text-indigo-700/60 hover:text-indigo-900 hover:bg-indigo-100/20'
                     }`}
-                    style={
-                      isActive
-                        ? {
-                            background: isDark
-                              ? 'linear-gradient(135deg, rgba(124,58,237,0.25), rgba(6,182,212,0.15))'
-                              : 'linear-gradient(135deg, rgba(109,40,217,0.15), rgba(8,145,178,0.1))',
-                          }
-                        : {}
-                    }
                   >
                     {link.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full"
+                        style={{
+                          background: isDark
+                            ? 'linear-gradient(90deg, #7c3aed, #06b6d4)'
+                            : 'linear-gradient(90deg, #6d28d9, #0891b2)',
+                        }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      />
+                    )}
                   </button>
                 );
               })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      <AnimatePresence>
-        {profileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
-            onClick={() => setProfileOpen(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="relative max-h-[88vh] max-w-3xl overflow-hidden rounded-2xl bg-black shadow-2xl"
-              onClick={(event) => event.stopPropagation()}
-            >
+              {/* Theme Toggle */}
               <button
-                type="button"
-                onClick={() => setProfileOpen(false)}
-                className="absolute right-3 top-3 z-10 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80"
-                aria-label="Close profile photo"
+                onClick={toggleTheme}
+                className={`ml-2 p-2 rounded-lg transition-all duration-300 ${
+                  isDark
+                    ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    : 'text-indigo-700 hover:bg-indigo-100/30'
+                }`}
+                aria-label="Toggle theme"
               >
-                <RiCloseLine size={24} />
+                <motion.div
+                  initial={false}
+                  animate={{ rotate: isDark ? 180 : 0 }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                >
+                  {isDark ? <RiMoonLine size={20} /> : <RiSunLine size={20} />}
+                </motion.div>
               </button>
-              <img
-                src="/assets/profile.jpg"
-                alt="Siddhant Mohanty"
-                className="block max-h-[88vh] w-auto max-w-full object-contain"
-              />
+            </div>
+
+            {/* Mobile Controls */}
+            <div className="flex items-center gap-2 lg:hidden">
+              {/* Theme toggle mobile */}
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-lg transition-all duration-300 ${
+                  isDark
+                    ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    : 'text-indigo-700 hover:bg-indigo-100/30'
+                }`}
+                aria-label="Toggle theme"
+              >
+                {isDark ? <RiMoonLine size={18} /> : <RiSunLine size={18} />}
+              </button>
+
+              {/* Profile image */}
+              <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
+
+              {/* Mobile menu toggle */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className={`p-2 rounded-lg transition-colors ${
+                  isDark
+                    ? 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    : 'text-indigo-700 hover:bg-indigo-100/30'
+                }`}
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <RiCloseLine size={22} /> : <RiMenuLine size={22} />}
+              </button>
+            </div>
+
+            {/* Desktop Profile picture */}
+            <div className="hidden lg:flex items-center gap-3">
+              <ProfileAvatar isDark={isDark} onClick={() => setProfileOpen(true)} />
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              className={`lg:hidden overflow-hidden ${
+                isDark
+                  ? 'bg-dark-800/95 border-b border-white/[0.06]'
+                  : 'bg-white/90 border-b border-indigo-200/20'
+              }`}
+              style={{ backdropFilter: 'blur(12px)' }}
+            >
+              <div className="px-4 py-3 grid grid-cols-3 gap-1">
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.href.replace('#', '');
+                  return (
+                    <button
+                      key={link.href}
+                      onClick={() => handleNavClick(link.href)}
+                      className={`py-2 px-3 text-sm rounded-lg text-center transition-all ${
+                        isActive
+                          ? isDark
+                            ? 'text-white font-medium'
+                            : 'text-indigo-900 font-medium'
+                          : isDark
+                          ? 'text-white/50 hover:text-white'
+                          : 'text-indigo-700/60 hover:text-indigo-900'
+                      }`}
+                      style={
+                        isActive
+                          ? {
+                              background: isDark
+                                ? 'linear-gradient(135deg, rgba(124,58,237,0.25), rgba(6,182,212,0.15))'
+                                : 'linear-gradient(135deg, rgba(109,40,217,0.15), rgba(8,145,178,0.1))',
+                            }
+                          : {}
+                      }
+                    >
+                      {link.label}
+                    </button>
+                  );
+                })}
+              </div>
             </motion.div>
-          </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+
+      {/* Profile Photo Overlay — portalled to document.body to escape nav's stacking context */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {profileOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+                onClick={() => setProfileOpen(false)}
+              >
+                <button
+                  type="button"
+                  onClick={() => setProfileOpen(false)}
+                  className="absolute top-5 right-5 text-white hover:text-white/70 transition-colors"
+                  aria-label="Close profile photo"
+                >
+                  <RiCloseLine size={30} />
+                </button>
+
+                <motion.img
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  src="/assets/profile.jpg"
+                  alt="Siddhant Mohanty"
+                  className="max-h-[90vh] max-w-[95vw] object-contain rounded-2xl shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }
